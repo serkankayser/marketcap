@@ -7,7 +7,7 @@ load_dotenv()
 API_KEY = os.environ.get('API_KEY')
 
 
-def api():
+def get_api():
   url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'
 
   parameters = {

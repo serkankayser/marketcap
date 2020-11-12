@@ -1,10 +1,10 @@
 from flask import Flask, request, render_template
-from api import api
+from api import get_api
 
-app = Flask(__name__)
-app.config["CACHE_TYPE"] = "null"
+flask_app = Flask(__name__)
+flask_app.config["CACHE_TYPE"] = "null"
 
-@app.route('/', methods=['GET', 'POST'])
+@flask_app.route('/', methods=['GET', 'POST'])
 def crypto_cur():
     """
         SEND RESULT FROM API TO WEB PAGE
@@ -12,7 +12,7 @@ def crypto_cur():
     results = []
     if request.method == 'GET':
         print('GET METHOD OK')
-        data = api()
+        data = get_api()
         for x in data['data']:
             results.append(x)
         print('FOR FINISHED')
@@ -29,4 +29,4 @@ def crypto_cur():
     return render_template("index.html", results=results, context=reverse)
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=5000, debug=True)
+    flask_app.run()
