@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <title>Cryptocurrency Prices, Charts And Market Capitalizations | CoinMarketCap</title>
+</head>
+<body style="max-width:75%; text-align:left;margin-left:auto ;margin-right:auto;margin-top:5%">
+    <h2>Today's Cryptocurrency Prices by Market Cap</h2>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                {% block content %}
+                {% if context == "1" %}
+                    <th scope="col"> <a href="/?sort_by=cmc_rank&reverse=0">#</a></th>
+                {% else %}
+                    <th scope="col"> <a href="/?sort_by=cmc_rank&reverse=1">#</a></th>
+                {% endif %}
+                
+                {% if context == "1" %}
+                    <th scope="col" class="text-left"><a href="/?sort_by=name&reverse=0">Name</a></th>
+                {% else %}
+                    <th scope="col" class="text-left"><a href="/?sort_by=name&reverse=1">Name</a></th>
+                {% endif %}
+                
+                {% if context == "1" %}
+                <th scope="col" class="text-right"><a href="/?sort_by=price&reverse=0">Price</a></th>
+                {% else %}
+                <th scope="col" class="text-right"><a href="/?sort_by=price&reverse=1">Price</a></th>
+                {% endif %}
+
+                {% if context == "1" %}
+                <th scope="col" class="text-right"><a href="/?sort_by=percent_change_24h&reverse=0">24h</a></th>
+                {% else %}
+                <th scope="col" class="text-right"><a href="/?sort_by=percent_change_24h&reverse=1">24h</a></th>
+                {% endif %}
+
+                {% if context == "1" %}
+                <th scope="col" class="text-right"><a href="/?sort_by=percent_change_7d&reverse=0">7d</a></th>
+                {% else %}
+                <th scope="col" class="text-right"><a href="/?sort_by=percent_change_7d&reverse=1">7d</a></th>
+                {% endif %}
+
+                {% if context == "1" %}
+                <th scope="col" class="text-right"><a href="/?sort_by=market_cap&reverse=0">Market Cap</a></th>
+                {% else %}
+                <th scope="col" class="text-right"><a href="/?sort_by=market_cap&reverse=1">Market Cap</a></th>
+                {% endif %}
+
+                {% if context == "1" %}
+                <th scope="col" class="text-right"><a href="/?sort_by=volume_24h&reverse=0">Volume</a></th>
+                {% else %}
+                <th scope="col" class="text-right"><a href="/?sort_by=volume_24h&reverse=1">Volume</a></th>
+                {% endif %}
+
+                {% if context == "1" %}
+                <th scope="col" class="text-right"><a href="/?sort_by=circulating_supply&reverse=0">Circulating Supply</a></th>
+                {% else %}
+                <th scope="col" class="text-right"><a href="/?sort_by=circulating_supply&reverse=1">Circulating Supply</a></th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in results %}
+            <tr>
+                <th scope="row">{{ row['cmc_rank'] }}</th>
+                <td class="text-left">{{ row['name'] }}-<span>{{row['symbol']}}</span></td>
+                <td class="text-right">RON {{ "{:,.2f}".format(row['quote']["RON"]['price']) }}</td>
+                {% if row['quote']['RON']['percent_change_24h'] > 0 %}
+                    <td class="text-right text-success">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-up-fill" fill="currentColor"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M7.247 4.86l-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
+                        </svg>
+                        {{ "{:.2f}".format(row['quote']['RON']['percent_change_24h']) }}%
+                    </td>
+                {% else %}
+                    <td class="text-right text-danger">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-down-fill" fill="currentColor"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                        </svg>
+                        {{ "{:.2f}".format(row['quote']['RON']['percent_change_24h']) }}%
+                    </td>
+                {% endif %}
+                {% if row['quote']['RON']['percent_change_7d'] > 0 %}
+                    <td class="text-right text-success">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-up-fill" fill="currentColor"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M7.247 4.86l-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
+                        </svg>
+                        {{ "{:.2f}".format(row['quote']['RON']['percent_change_7d']) }}%
+                    </td>
+                {% else %}
+                    <td class="text-right text-danger">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-down-fill" fill="currentColor"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                        </svg>
+                        {{ "{:.2f}".format(row['quote']['RON']['percent_change_7d']) }}%
+                    </td>
+                {% endif %}
+                <td class="text-right">RON {{ "{:,.2f}".format(row['quote']['RON']['market_cap']) }}</td>
+                <td class="text-right">RON {{ "{:,.2f}".format(row['quote']['RON']['volume_24h']) }}</td>
+                <td class="text-right">{{ "{:,.2f}".format(row['circulating_supply']) }} <span>{{row['symbol']}}</td>
+            </tr>
+            {% endfor %}
+            {% endblock %}        
+        </tbody>
+    </table>
+</body>
+</html>
